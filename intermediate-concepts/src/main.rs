@@ -1,6 +1,9 @@
+use crate::traits::Vehicle as _;
+
 mod errors;
 mod generics;
 mod os_commands;
+mod traits;
 
 fn main() {
     generics::mul_nums(1, 2);
@@ -12,4 +15,8 @@ fn main() {
     // errors::list_files("lib");
     // os_commands::example();
     // os_commands::ls_command();
+    let car = traits::Car {
+        color: String::from("red"),
+    };
+    println!("{}", car.forward());
 }
