@@ -1,5 +1,6 @@
 use crate::traits::Vehicle as _;
 
+mod closures;
 mod errors;
 mod generics;
 mod macros;
@@ -21,4 +22,5 @@ fn main() {
     };
     println!("{}", car.forward());
     macros::use_macro();
+    println!("The result is {}", closures::example_1(10, 20));
 }
