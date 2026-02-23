@@ -2,6 +2,7 @@ use crate::traits::Vehicle as _;
 
 mod errors;
 mod generics;
+mod macros;
 mod os_commands;
 mod traits;
 
@@ -19,4 +20,5 @@ fn main() {
         color: String::from("red"),
     };
     println!("{}", car.forward());
+    macros::use_macro();
 }

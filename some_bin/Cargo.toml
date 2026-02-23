@@ -1,0 +1,7 @@
+[package]
+name = "some_bin"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+some_lib = { path = "../some_lib" }

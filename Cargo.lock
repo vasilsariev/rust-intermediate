@@ -9,3 +9,14 @@ version = "0.1.0"
 [[package]]
 name = "rust-docker"
 version = "0.1.0"
+
+[[package]]
+name = "some_bin"
+version = "0.1.0"
+dependencies = [
+ "some_lib",
+]
+
+[[package]]
+name = "some_lib"
+version = "0.1.0"

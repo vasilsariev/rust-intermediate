@@ -1,2 +1,2 @@
 [workspace]
-members = ["intermediate-concepts", "rust-docker"]
+members = ["intermediate-concepts", "rust-docker", "some_bin", "some_lib"]
