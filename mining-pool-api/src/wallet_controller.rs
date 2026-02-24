@@ -1,12 +1,12 @@
 use {crate::util::*, crate::wallet::*, actix_web::HttpResponse, actix_web::web::Json};
 
 // List all wallets
-#[get("/miners")]
-pub async fn list_miners() -> HttpResponse {
-    //TODO: Get all MinerDAO objects from DB and convert to Miner objects
+#[get("/wallets")]
+pub async fn list_wallets() -> HttpResponse {
+    //TODO: Get all WalletDAO objects from DB and convert to Wallet objects
 
-    let miners: Vec<Wallet> = vec![];
-    ResponseType::Ok(miners).get_response()
+    let wallets: Vec<Wallet> = vec![];
+    ResponseType::Ok(wallets).get_response()
 }
 
 //Get a wallet
@@ -16,13 +16,13 @@ pub async fn get_wallet() -> HttpResponse {
     let wallet: Option<Wallet> = None;
     match wallet {
         Some(wallet) => ResponseType::Ok(wallet).get_response(),
-        None => ResponseType::NotFound(NotFoundMessage::new(String::from("Miner not found")))
+        None => ResponseType::NotFound(NotFoundMessage::new(String::from("Wallet not found")))
             .get_response(),
     }
 }
 
 #[post("/wallets")]
-pub async fn create_miner(miner_request: Json<NewWalletRequest>) -> HttpResponse {
+pub async fn create_wallet(_wallet_request: Option<Json<NewWalletRequest>>) -> HttpResponse {
     let wallet: Vec<Wallet> = vec![];
     ResponseType::Created(wallet).get_response()
 }
