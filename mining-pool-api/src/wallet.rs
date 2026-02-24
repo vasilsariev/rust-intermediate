@@ -22,6 +22,7 @@ pub struct NewWalletRequest {
 
 // ------------------ DAO Object (DB Table Records)
 
+#[derive(Debug, Deserialize, Serialize, sqlx::FromRow)]
 pub struct WalletDAO {
     pub address: String,
     pub club_name: String,
