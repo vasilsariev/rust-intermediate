@@ -1,9 +1,10 @@
 use {
+    crate::db::WalletDb,
     crate::util::*,
     crate::wallet::*,
     actix_web::{
-        web::{Data, Json},
         HttpResponse,
+        web::{Data, Json},
     },
     sqlx::PgPool,
 };
@@ -54,7 +55,17 @@ pub async fn get_wallet() -> HttpResponse {
 }
 
 #[actix_web::post("/wallets")]
-pub async fn create_wallet(_wallet_request: Option<Json<NewWalletRequest>>) -> HttpResponse {
-    let wallet: Vec<Wallet> = vec![];
-    ResponseType::Created(wallet).get_response()
+pub async fn create_wallet(
+    _wallet_request: Json<NewWalletRequest>,
+    db: Data<WalletDb>,
+) -> HttpResponse {
+    let mut db = db.lock().unwrap();
+    let new_id = db.keys().max().unwrap_or(&0) + 1;
+    let club_name = _wallet_request.club_name.clone();
+    db.insert(new_id, _wallet_request.into_inner());
+    ResponseType::Created(NewWalletResponse {
+        id: new_id,
+        club_name: club_name,
+    })
+    .get_response()
 }

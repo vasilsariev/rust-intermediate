@@ -9,6 +9,7 @@ use {
     tracing_subscriber::{EnvFilter, layer::SubscriberExt, util::SubscriberInitExt},
 };
 
+mod db;
 mod miner;
 mod miner_controller;
 mod util;
@@ -18,24 +19,13 @@ mod wallet_controller;
 #[actix_web::main]
 async fn main() -> io::Result<()> {
     let port = 9090;
-    tracing_subscriber::registry()
-        .with(
-            EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| EnvFilter::new("actix_web=debug,actix_server=info,sqlx=warn")),
-        )
-        .with(tracing_subscriber::fmt::layer())
-        .init();
 
-    let db_pool = env::var("DATABASE_URL").ok().and_then(|database_url| {
-        PgPoolOptions::new()
-            .max_connections(5)
-            .connect_lazy(&database_url)
-            .ok()
-    });
+    let wallet_db = db::create_wallet_db();
 
     HttpServer::new(move || {
+        let app_data = Data::new(wallet_db.clone());
         App::new()
-            .app_data(Data::new(db_pool.clone()))
+            .app_data(app_data)
             .wrap(TracingLogger::default())
             .wrap(middleware::NormalizePath::trim())
             .service(wallet_controller::list_wallets)

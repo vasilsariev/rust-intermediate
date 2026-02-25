@@ -1,5 +1,9 @@
 use {
-    crate::miner::*, crate::util::*, actix_web::HttpResponse, actix_web::web, actix_web::web::Json,
+    crate::db::WalletDb,
+    crate::miner::*,
+    crate::util::*,
+    actix_web::web::Json,
+    actix_web::{HttpResponse, web},
 };
 
 // List all miners

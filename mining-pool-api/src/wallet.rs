@@ -17,7 +17,7 @@ pub struct Wallet {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct NewWalletRequest {
-    club_name: String,
+    pub club_name: String,
 }
 
 // ------------------ DAO Object (DB Table Records)
@@ -25,5 +25,11 @@ pub struct NewWalletRequest {
 #[derive(Debug, Deserialize, Serialize, sqlx::FromRow)]
 pub struct WalletDAO {
     pub address: String,
+    pub club_name: String,
+}
+
+#[derive(Debug, Deserialize, Serialize, sqlx::FromRow)]
+pub struct NewWalletResponse {
+    pub id: u32,
     pub club_name: String,
 }
