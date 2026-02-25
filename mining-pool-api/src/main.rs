@@ -1,14 +1,9 @@
-#[macro_use]
 extern crate actix_web;
 
 use {
-    actix_web::{App, HttpServer, middleware, web::Data},
-    sqlx::postgres::PgPoolOptions,
-    std::{env, io},
-    tracing_actix_web::TracingLogger,
-    tracing_subscriber::{EnvFilter, layer::SubscriberExt, util::SubscriberInitExt},
+    actix_web::{App, HttpServer, web::Data},
+    std::io,
 };
-
 mod db;
 mod miner;
 mod miner_controller;
@@ -26,8 +21,6 @@ async fn main() -> io::Result<()> {
         let app_data = Data::new(wallet_db.clone());
         App::new()
             .app_data(app_data)
-            .wrap(TracingLogger::default())
-            .wrap(middleware::NormalizePath::trim())
             .service(wallet_controller::list_wallets)
             .service(wallet_controller::get_wallet)
             .service(wallet_controller::create_wallet)

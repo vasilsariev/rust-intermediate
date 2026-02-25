@@ -21,7 +21,7 @@ pub struct NewMinerRequest {
 
 // ------------------ DAO Object (DB Table Records)
 
-#[derive(Debug, Deserialize, Serialize, sqlx::FromRow)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct MinerDAO {
     pub id: String,
     pub address: String,

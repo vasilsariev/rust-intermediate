@@ -1,5 +1,4 @@
 use {
-    crate::db::WalletDb,
     crate::miner::*,
     crate::util::*,
     actix_web::web::Json,
